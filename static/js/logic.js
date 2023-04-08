@@ -1,7 +1,7 @@
 // Initialize the map object
 var myMap = L.map("map", {
-    center: [1.7749, 25.4194],
-    zoom: 1.5
+    center: [15.7749, 20.4194],
+    zoom: 2
 });
 
 // Add a tile layer (base map) to the map
@@ -30,16 +30,16 @@ function createMarkers(features) {
         var depth = feature.geometry.coordinates[2];
         var place = feature.properties.place;
         // Create a markerSize variable based on magnitude
-        var markerSize = magnitude * 5;
+        var markerSize = magnitude * 3;
         var markerColor = depthToColor(depth);
         // Create a circle marker with the appropriate radius and color
         var marker = L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
             radius: markerSize,
             fillColor: markerColor,
             color: "black",
-            weight: 1,
+            weight: .25,
             opacity: 1,
-            fillOpacity: 0.8
+            fillOpacity: 0.75
         });
         // Bind a popup to the marker to show magnitude and depth on click
         marker.bindPopup(`<h4>${place}</h4><hr><h5>Magnitude: ${magnitude.toFixed(2)}</h5><h5>Depth: ${depth.toFixed(2)} km</h5>`);
