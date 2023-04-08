@@ -1,52 +1,39 @@
-body {
-  padding: 5px;
-  margin: 5px;
-  background-color: #f0f1f1; 
-}
-
-#map,
+/* General Styles */
 body,
 html {
+  margin: 3px;
+  padding: 3px;
   height: 97%;
+  /* background-color: #f0f1f1; */
 }
 
-.custom-header {
-  font-size: 2rem;
-  line-height: 1.2;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  margin-bottom: 0;
-  margin-top: 0;
-  text-align: center;
-}
-
-
-.gradient {
-  display: inline-block;
+/* Map Styles */
+#map {
   position: relative;
-  height: 15px;
-  width: 100px;
-  background-image: linear-gradient(to right, #98ee00, #d4ee00, #eecc00, #ee9c00, #ea822c, #ea2c2c);
+  height: 100%;
 }
 
-.range {
+.map-title {
   position: absolute;
-  bottom: -15px;
-  text-align: center;
-  font-size: 12px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px; 
+  top: 10px;
+  left: 50px;
+  z-index: 1000;
+  background-color: whitesmoke; 
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  max-width: 300px;
+  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Custom CSS for legend positioning */
+/* Legend Styles */
 .legend {
+  background-color: whitesmoke; 
   padding: 5px;
-  /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 3px; */
-  padding-bottom: 10px;
-} 
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
 
 .legend h4 {
   margin: 0 0 10px;
@@ -54,4 +41,3 @@ html {
   font-weight: bold;
   text-align: center;
 }
-

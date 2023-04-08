@@ -15,8 +15,8 @@ function depthToColor(depth) {
     if (depth < 30) return "#d4ee00";
     if (depth < 50) return "#eecc00";
     if (depth < 70) return "#ee9c00";
-    if (depth < 90) return "#ea822c";
-    return "#ea2c2c";
+    if (depth < 90) return "#ff6600";
+    else return "#ff3300";
 }
 
 
@@ -50,14 +50,30 @@ function createMarkers(features) {
 }
 
 
+// Function to create tectonic plate boundaries polyline
+function createTectonicPlateBoundaries(plateData) {
+    var plateBoundaries = L.geoJSON(plateData, {
+        style: function() {
+            return {
+                color: "green",
+                weight: 2,
+                opacity: 0.75
+            };
+        }
+    });
+    return plateBoundaries;
+}
+
+
 // Fetch data from the all the montly endpoints
 Promise.all([
     d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"),
     d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson"),
     d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson"),
     d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson"),
-    d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson")   
-]).then(function([allData,mag1Data,mag2Data,mag4Data,significantData]) {
+    d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson"),
+    d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json")    
+]).then(function([allData,mag1Data,mag2Data,mag4Data,significantData,plateData]) {
     //console.log(allData.features);
 
     // Create markers for both datasets
@@ -66,9 +82,13 @@ Promise.all([
     var mag2Markers = createMarkers(mag2Data.features);
     var mag4Markers = createMarkers(mag4Data.features);
     var significantMarkers = createMarkers(significantData.features);
+    var tectonicPlateBoundaries = createTectonicPlateBoundaries(plateData);
+
 
     // Add allMarkers layer to map by default
     myMap.addLayer(allMarkers);
+    // Add tectonicPlateBoundaries layer to map by default
+    // myMap.addLayer(tectonicPlateBoundaries);
 
     // Create overlay maps
     var overlayMaps = {
@@ -77,6 +97,7 @@ Promise.all([
         "Magnitude 2.5+": mag2Markers,
         "Magnitude 4.5+": mag4Markers,
         "Significant Earthquakes": significantMarkers,
+        "Tectonic Plate Boundaries": tectonicPlateBoundaries,
     };
 
 
@@ -95,17 +116,24 @@ legend.onAdd = function() {
     var div = L.DomUtil.create("div", "legend");
 
     div.innerHTML += "<h4>Depth</h4>";
-    div.innerHTML += '<div class="gradient"></div>';
-    div.innerHTML += '<div class="range">0<span style="float: right;">150+</span></div>';
 
-    var color1 = depthToColor(5);
-    var color2 = depthToColor(20);
-    var color3 = depthToColor(40);
-    var color4 = depthToColor(65);
-    var color5 = depthToColor(90);
-    var color6 = depthToColor(150);
+var labels = [
+    { range: "0-10", color: depthToColor(5) },
+    { range: "10-30", color: depthToColor(20) },
+    { range: "30-50", color: depthToColor(40) },
+    { range: "50-70", color: depthToColor(65) },
+    { range: "70-90", color: depthToColor(80) },
+    { range: "90+", color: depthToColor(150) },
+];
 
-    div.querySelector(".gradient").style.backgroundImage = `linear-gradient(to right, ${color1}, ${color2}, ${color3}, ${color4}, ${color5}, ${color6})`;
+labels.forEach(function (label) {
+    div.innerHTML += `
+        <div>
+            <span style="background-color: ${label.color}; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+            <span>${label.range}</span>
+        </div>
+    `;
+});
 
     return div;
 };
