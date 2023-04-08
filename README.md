@@ -1,7 +1,7 @@
 # Leaflet_challenge
 
 ### Project Overview
-This project uses JavaScript and the Leaflet library to visualize earthquake data from the United States Geological Survey. The map displays markers for earthquakes of various magnitudes and depths, with the color and size of the markers indicating the depth and magnitude of each earthquake, respectively. Users can toggle between different datasets to view earthquakes of different magnitudes and time periods. Additionally, a legend and layer control are provided to help users interpret the map. The data the feeds this map is updated from the United States Geological Survey every minute. 
+This project uses JavaScript and the Leaflet library to visualize earthquake data from the United States Geological Survey. The map displays markers for earthquakes of various magnitudes and depths, with the color and size of the markers indicating the depth and magnitude of each earthquake, respectively. The data the feeds this map is updated from the United States Geological Survey (https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) every minute. Users can toggle between different datasets to view earthquakes of different magnitudes and time periods. Additionally, a legend and layer control are provided to help users interpret the map. 
 
 ### Technologies Used:
 - JavaScript
