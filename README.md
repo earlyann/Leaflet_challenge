@@ -7,6 +7,7 @@ This project uses JavaScript and the Leaflet library to visualize earthquake dat
 - JavaScript
 - Leaflet.js
 - D3.js
+- Bootstrap
 
 ### Instructions
 To view the earthquake map, navigate to the GitHub Pages site for this project. The map will load automatically, displaying markers for all global earthquakes from the past month. To view earthquakes from a different time period or magnitude range, use the layer control on the top-right corner of the map to toggle between different datasets. To view more information about a specific earthquake, click on the corresponding marker to display a popup with information about the magnitude, depth, and location of the earthquake.
