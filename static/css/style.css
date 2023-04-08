@@ -1,0 +1,31 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#map,
+body,
+html {
+  height: 100%;
+}
+
+.gradient {
+  display: inline-block;
+  position: relative;
+  height: 15px;
+  width: 100px;
+  background-image: linear-gradient(to right, #98ee00, #d4ee00, #eecc00, #ee9c00, #ea822c, #ea2c2c);
+}
+
+.range {
+  position: absolute;
+  bottom: -20px;
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+}
+
+.leaflet-control {
+  padding: 10px;
+}
+
