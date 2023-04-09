@@ -29,6 +29,7 @@ function createMarkers(features) {
         var magnitude = feature.properties.mag;
         var depth = feature.geometry.coordinates[2];
         var place = feature.properties.place;
+        var date = new Date(feature.properties.time);
         // Create a markerSize variable based on magnitude
         var markerSize = magnitude * 3;
         var markerColor = depthToColor(depth);
@@ -42,7 +43,7 @@ function createMarkers(features) {
             fillOpacity: 0.75
         });
         // Bind a popup to the marker to show magnitude and depth on click
-        marker.bindPopup(`<h4>${place}</h4><hr><h5>Magnitude: ${magnitude.toFixed(2)}</h5><h5>Depth: ${depth.toFixed(2)} km</h5>`);
+        marker.bindPopup(`<h4>${place}</h4><hr><h5>Magnitude: ${magnitude.toFixed(2)}</h5><h5>Depth: ${depth.toFixed(2)} km</h5><h5>Date: ${date.toLocaleString()}</h5>`);
         // Add the marker to the earthquakeMarkers array
         earthquakeMarkers.push(marker);
     });
@@ -74,7 +75,7 @@ Promise.all([
     d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson"),
     d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json")    
 ]).then(function([allData,mag1Data,mag2Data,mag4Data,significantData,plateData]) {
-    //console.log(allData.features);
+    console.log(allData.features);
 
     // Create markers for both datasets
     var allMarkers = createMarkers(allData.features);
